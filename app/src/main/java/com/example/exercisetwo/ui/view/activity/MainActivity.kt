@@ -1,21 +1,33 @@
 package com.example.exercisetwo.ui.view.activity
 
 
+import android.content.ContentValues.TAG
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.exercisetwo.R
 import com.example.exercisetwo.data.model.NewsModel
+import com.example.exercisetwo.data.model.NewsRetroResponse
+import com.example.exercisetwo.data.model.Rows
+import com.example.exercisetwo.data.network.GetData
 import com.example.exercisetwo.databinding.ActivityMainBinding
 import com.example.exercisetwo.ui.adapter.NewsAdapter
 import com.example.exercisetwo.ui.viewmodel.MainActivityViewModel
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 
 import org.json.JSONException
 import org.json.JSONObject
+import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
 import java.nio.charset.Charset
 
@@ -29,47 +41,22 @@ class MainActivity : AppCompatActivity() {
         binding= ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         manager=LinearLayoutManager(this)
-        var data: ArrayList<NewsModel> = ArrayList()
+
         viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
+        viewModel.getUser()!!.observe(this, Observer {
+            var data: List<Rows> = ArrayList()
+            data=it.rows
 
-        viewModel.getArrayList().observe(this, Observer {
             binding.rvRecycler.apply {
-                try{
-                    val obj= JSONObject(loadJSONFromAsset())
-                    val rowsArray=obj.getJSONArray("rows")
-                    for (i in 0 until rowsArray.length()) {
-                        val rowsDetail = rowsArray.getJSONObject(i)
-                        data.add(NewsModel(rowsDetail.getString("title"),rowsDetail.getString("description"),rowsDetail.getString("imageHref")))
 
-                    }
-
-
-                }catch (e: JSONException){
-                    e.printStackTrace()
-                }
 
                 adapter=NewsAdapter(data,this@MainActivity)
                 layoutManager=manager
 
             }
+
         })
-    }
- fun loadJSONFromAsset(): String {
-        val json: String?
-        try {
-            val inputStream =assets.open("myJson.json")
-            val size = inputStream.available()
-            val buffer = ByteArray(size)
-            val charset: Charset = Charsets.UTF_8
-            inputStream.read(buffer)
-            inputStream.close()
-            json = String(buffer, charset)
-        }
-        catch (ex: IOException) {
-            ex.printStackTrace()
-            return ""
-        }
-        return json
+
     }
 
 

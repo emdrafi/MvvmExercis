@@ -10,11 +10,12 @@ import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
 import com.example.exercisetwo.R
 import com.example.exercisetwo.data.model.NewsModel
+import com.example.exercisetwo.data.model.Rows
 import com.example.exercisetwo.databinding.CardviewDesignBinding
 
 import com.squareup.picasso.Picasso
 
-class NewsAdapter(private val mList:List<NewsModel>, private val context:Context):
+class NewsAdapter(private val mList:List<Rows>, private val context:Context):
     RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -46,7 +47,7 @@ class NewsAdapter(private val mList:List<NewsModel>, private val context:Context
         return mList.size
     }
     class ViewHolder(val binding: CardviewDesignBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(detils:NewsModel){
+        fun bind(detils:Rows){
             binding.user=detils
 
         }

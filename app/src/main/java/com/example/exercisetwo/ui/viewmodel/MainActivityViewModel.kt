@@ -3,10 +3,13 @@ package com.example.exercisetwo.ui.viewmodel
 import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.exercisetwo.data.model.NewsModel
+import com.example.exercisetwo.data.model.NewsRetroResponse
+import com.example.exercisetwo.data.repository.MainActivityRepository
 import com.example.exercisetwo.ui.view.activity.MainActivity
 import org.json.JSONException
 import org.json.JSONObject
@@ -27,6 +30,12 @@ import java.util.ArrayList
 
         arrayListMutableLiveData.value=arrayList
         return arrayListMutableLiveData
+    }
+    var servicesLiveData: MutableLiveData<NewsRetroResponse>? = null
+
+    fun getUser() : LiveData<NewsRetroResponse>? {
+        servicesLiveData = MainActivityRepository().getServiceApiCall()
+        return servicesLiveData
     }
 
 
