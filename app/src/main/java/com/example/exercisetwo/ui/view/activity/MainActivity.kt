@@ -43,20 +43,24 @@ class MainActivity : AppCompatActivity() {
         manager=LinearLayoutManager(this)
 
         viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
-        viewModel.getUser()!!.observe(this, Observer {
+        getRecycler()
+
+    }
+
+    private fun getRecycler() {
+        viewModel.getUser()?.observe(this, Observer {
             var data: List<Rows> = ArrayList()
-            data=it.rows
+            data = it.rows
 
             binding.rvRecycler.apply {
 
 
-                adapter=NewsAdapter(data,this@MainActivity)
-                layoutManager=manager
+                adapter = NewsAdapter(data, this@MainActivity)
+                layoutManager = manager
 
             }
 
         })
-
     }
 
 
