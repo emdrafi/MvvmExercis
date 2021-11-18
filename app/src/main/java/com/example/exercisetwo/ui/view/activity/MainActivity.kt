@@ -35,12 +35,13 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var manager: RecyclerView.LayoutManager
     private lateinit var viewModel: MainActivityViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        binding= ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        manager=LinearLayoutManager(this)
+        manager = LinearLayoutManager(this)
 
         viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
         getRecycler()
@@ -49,18 +50,25 @@ class MainActivity : AppCompatActivity() {
 
     private fun getRecycler() {
         viewModel.getUser()?.observe(this, Observer {
-            var data: List<Rows> = ArrayList()
-            data = it.rows
 
-            binding.rvRecycler.apply {
+            viewModel.addRows(it.rows)
+
+        })
+        binding.rvRecycler.apply {
+
+            viewModel.readAllData.observe(this@MainActivity, Observer {
+                var data = mutableListOf<Rows>()
+                data = it as MutableList<Rows>
 
 
                 adapter = NewsAdapter(data, this@MainActivity)
                 layoutManager = manager
 
-            }
+            })
 
-        })
+
+        }
+
     }
 
 

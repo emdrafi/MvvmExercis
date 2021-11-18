@@ -1,13 +1,14 @@
 package com.example.exercisetwo.ui.viewmodel
 
 import android.annotation.SuppressLint
+import android.app.Application
 import android.content.ContentValues
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
+import com.example.exercisetwo.data.db.RowsDatabase
 import com.example.exercisetwo.data.model.NewsModel
 import com.example.exercisetwo.data.model.NewsRetroResponse
+import com.example.exercisetwo.data.model.Rows
 import com.example.exercisetwo.data.network.ApiClient
 import com.example.exercisetwo.data.repository.MainActivityRepository
 import io.reactivex.Observable
@@ -15,19 +16,32 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.util.ArrayList
 
 @SuppressLint("StaticFieldLeak")
-class MainActivityViewModel : ViewModel() {
+class MainActivityViewModel(application: Application) : AndroidViewModel(application) {
+    val readAllData: LiveData<List<Rows>>
+    private val repository: MainActivityRepository
     val newsSetterAndGetter = MutableLiveData<NewsRetroResponse>()
 
     private var mCompositeDisposable: CompositeDisposable? = null
 
 
-    //    private val BASE_URL = "https://dl.dropboxusercontent.com"
-
-
     var servicesLiveData: MutableLiveData<NewsRetroResponse>? = null
+
+    init {
+        val rowsDao = RowsDatabase.getDatabase(application).rowsDao()
+        repository = MainActivityRepository(rowsDao)
+        readAllData = repository.readAllData
+    }
+
+    fun addRows(rows: List<Rows>) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.addRows(rows)
+        }
+    }
 
 
     fun getUser(): LiveData<NewsRetroResponse>? {
