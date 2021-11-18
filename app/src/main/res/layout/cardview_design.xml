@@ -29,7 +29,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#F3F0F0">
+                android:background="@color/back_color">
 
 
                 <androidx.constraintlayout.widget.Guideline
@@ -59,7 +59,7 @@
                     android:text="@{user.title}"
                     android:layout_marginStart="5dp"
                     android:textSize="25sp"
-                    android:textColor="#8C9AE4"
+                    android:textColor="@color/text_color"
                     android:textStyle="bold"
                     android:layout_marginLeft="5dp" />
 

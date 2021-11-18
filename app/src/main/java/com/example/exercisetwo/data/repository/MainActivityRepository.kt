@@ -20,12 +20,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivityRepository(private val rowsDao: RowsDao) {
-    val newsSetterAndGetter = MutableLiveData<NewsRetroResponse>()
-    fun getServiceApiCall(): MutableLiveData<NewsRetroResponse> {
 
-        return newsSetterAndGetter
-
-    }
     val readAllData : LiveData<List<Rows>> = rowsDao.readAllData()
 
     suspend fun addRows(rows:  List<Rows>) {
