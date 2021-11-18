@@ -11,17 +11,27 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.view.activity.MainActivity">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_recycler"
+        <FrameLayout
+            android:id="@+id/fragment_main"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent">
 
-        </androidx.recyclerview.widget.RecyclerView>
+        </FrameLayout>
+
+<!--        <androidx.recyclerview.widget.RecyclerView-->
+<!--            android:id="@+id/rv_recycler"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent">-->
+
+<!--        </androidx.recyclerview.widget.RecyclerView>-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -18,7 +18,9 @@ import com.example.exercisetwo.data.model.Rows
 import com.example.exercisetwo.data.network.GetData
 import com.example.exercisetwo.databinding.ActivityMainBinding
 import com.example.exercisetwo.ui.adapter.NewsAdapter
+import com.example.exercisetwo.ui.view.fragments.ListFragment
 import com.example.exercisetwo.ui.viewmodel.MainActivityViewModel
+import com.example.exercisetwo.util.CommonUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -44,31 +46,24 @@ class MainActivity : AppCompatActivity() {
         manager = LinearLayoutManager(this)
 
         viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
-        getRecycler()
+        getFragment()
 
     }
 
-    private fun getRecycler() {
+    private fun getFragment() {
         viewModel.getUser()?.observe(this, Observer {
 
             viewModel.addRows(it.rows)
 
         })
-        binding.rvRecycler.apply {
+        val fragment=ListFragment()
+        showFragment(fragment)
 
-            viewModel.readAllData.observe(this@MainActivity, Observer {
-                var data = mutableListOf<Rows>()
-                data = it as MutableList<Rows>
-
-
-                adapter = NewsAdapter(data, this@MainActivity)
-                layoutManager = manager
-
-            })
-
-
-        }
-
+    }
+    fun showFragment(fragment: ListFragment){
+        val fram = supportFragmentManager.beginTransaction()
+        fram.replace(R.id.fragment_main,fragment)
+        fram.commit()
     }
 
 
