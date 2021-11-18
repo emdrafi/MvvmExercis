@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ExerciseTwo</string>
+    <string name="msg_netconnection">No internet connection</string>
 </resources>

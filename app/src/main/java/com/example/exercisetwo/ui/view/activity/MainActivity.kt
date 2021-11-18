@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
             val fragment=ListFragment()
             showFragment(fragment)
         }else{
-            Toast.makeText(applicationContext,"No internet connection",Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext,getString(R.string.msg_netconnection),Toast.LENGTH_SHORT).show()
         }
 
 
