@@ -8,12 +8,11 @@ class ApiClient {
 
     companion object {
         fun getRetrofitData(): GetData? {
-            val requestInterface = Retrofit.Builder()
+            return Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build().create(GetData::class.java)
-            return requestInterface
         }
     }
 }

@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.example.exercisetwo.ui.view.activity
 import android.app.ProgressDialog
 import android.os.Build
@@ -5,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.lifecycle.Observer
+
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,6 +17,7 @@ import com.example.exercisetwo.ui.view.fragments.ListFragment
 import com.example.exercisetwo.ui.viewmodel.MainActivityViewModel
 import com.example.exercisetwo.util.NetworkHelper
 
+@Suppress("DEPRECATION", "DEPRECATION")
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var manager: RecyclerView.LayoutManager
@@ -39,7 +42,7 @@ class MainActivity : AppCompatActivity() {
             val progressDialog=ProgressDialog(this)
             progressDialog.setTitle("Loading")
             progressDialog.show()
-            viewModel.getUser()?.observe(this, Observer {
+            viewModel.getUser()?.observe(this, {
 
                 viewModel.addRows(it.rows)
                 progressDialog.cancel()

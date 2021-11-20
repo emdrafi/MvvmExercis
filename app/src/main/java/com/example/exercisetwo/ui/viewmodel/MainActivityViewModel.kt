@@ -16,6 +16,7 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 @SuppressLint("StaticFieldLeak")
 class MainActivityViewModel(application: Application) : AndroidViewModel(application) {
     val readAllData: LiveData<List<Rows>>
