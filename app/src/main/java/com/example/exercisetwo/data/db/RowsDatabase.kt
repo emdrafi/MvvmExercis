@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.exercisetwo.data.model.Rows
 
-@Database(entities = [Rows::class], version = 1, exportSchema = false)
+@Database(entities = [Rows::class], version = 2, exportSchema = false)
 abstract class RowsDatabase : RoomDatabase() {
     abstract fun rowsDao(): RowsDao
 
@@ -28,7 +28,8 @@ abstract class RowsDatabase : RoomDatabase() {
                     context.applicationContext,
                     RowsDatabase::class.java,
                     "rows_database"
-                ).build()
+                ).fallbackToDestructiveMigration()
+                    .build()
 
                 INSTANCE = instance
                 return instance

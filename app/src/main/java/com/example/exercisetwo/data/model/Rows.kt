@@ -1,23 +1,25 @@
 package com.example.exercisetwo.data.model
 
-import android.os.Parcel
+
 import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-@Entity(tableName = "rows_table")
+@Entity(tableName = "rows_table", indices = [Index(value = ["title"], unique = true)])
 data class Rows(
+
     @PrimaryKey(autoGenerate = true)
     val id: Int,
-    @ColumnInfo
+    @ColumnInfo(name = "title")
     @SerializedName("title") val title: String?,
-    @ColumnInfo
+    @ColumnInfo(name = "description")
     @SerializedName("description") val description: String?,
-    @ColumnInfo
+    @ColumnInfo(name = "imageHref")
     @SerializedName("imageHref") val imageHref: String?
 ) : Parcelable
 

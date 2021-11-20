@@ -6,19 +6,15 @@ import android.content.ContentValues
 import android.util.Log
 import androidx.lifecycle.*
 import com.example.exercisetwo.data.db.RowsDatabase
-import com.example.exercisetwo.data.model.NewsModel
 import com.example.exercisetwo.data.model.NewsRetroResponse
 import com.example.exercisetwo.data.model.Rows
 import com.example.exercisetwo.data.network.ApiClient
 import com.example.exercisetwo.data.repository.MainActivityRepository
-import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.util.ArrayList
 
 @SuppressLint("StaticFieldLeak")
 class MainActivityViewModel(application: Application) : AndroidViewModel(application) {
@@ -87,9 +83,6 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     }
 
 
-    fun setNewValue(newValue: NewsRetroResponse) {
-        servicesLiveData?.value = newValue
-    }
 
 
 }

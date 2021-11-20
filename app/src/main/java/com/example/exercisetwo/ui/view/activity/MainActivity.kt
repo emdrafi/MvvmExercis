@@ -1,6 +1,5 @@
 package com.example.exercisetwo.ui.view.activity
-
-
+import android.app.ProgressDialog
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -37,9 +36,13 @@ class MainActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun getFragment() {
         if(NetworkHelper.isNetworkConnected(this)){
+            val progressDialog=ProgressDialog(this)
+            progressDialog.setTitle("Loading")
+            progressDialog.show()
             viewModel.getUser()?.observe(this, Observer {
 
                 viewModel.addRows(it.rows)
+                progressDialog.cancel()
 
             })
             val fragment=ListFragment()
