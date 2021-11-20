@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
 
 
     }
-    fun showFragment(fragment: ListFragment){
+   private fun showFragment(fragment: ListFragment){
         val fram = supportFragmentManager.beginTransaction()
         fram.replace(R.id.fragment_main,fragment)
         fram.commit()

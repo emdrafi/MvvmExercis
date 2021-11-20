@@ -72,17 +72,13 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     fun handleResponse(androidList: NewsRetroResponse) {
         newsSetterAndGetter.value = androidList
 
-
     }
 
     fun handleError(error: Throwable) {
 
         Log.d(ContentValues.TAG, error.localizedMessage)
 
-
     }
-
-
 
 
 }
