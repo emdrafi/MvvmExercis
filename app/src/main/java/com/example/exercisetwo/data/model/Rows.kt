@@ -16,11 +16,11 @@ data class Rows(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
     @ColumnInfo(name = "title")
-    @SerializedName("title") val title: String?,
+    @SerializedName("title") val title: String,
     @ColumnInfo(name = "description")
-    @SerializedName("description") val description: String?,
+    @SerializedName("description") val description: String,
     @ColumnInfo(name = "imageHref")
-    @SerializedName("imageHref") val imageHref: String?
+    @SerializedName("imageHref") val imageHref: String
 ) : Parcelable
 
 

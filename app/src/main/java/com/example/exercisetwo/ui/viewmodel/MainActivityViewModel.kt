@@ -20,7 +20,7 @@ import kotlinx.coroutines.launch
 @SuppressLint("StaticFieldLeak")
 class MainActivityViewModel(application: Application) : AndroidViewModel(application) {
     val readAllData: LiveData<List<Rows>>
-    private val repository: MainActivityRepository
+     val repository: MainActivityRepository
     val newsSetterAndGetter = MutableLiveData<NewsRetroResponse>()
 
     private var mCompositeDisposable: CompositeDisposable? = null
