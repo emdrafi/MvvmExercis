@@ -10,7 +10,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-@Entity(tableName = "rows_table", indices = [Index(value = ["title"], unique = true)])
+@Entity(tableName = "rows_table", indices = [Index(value = ["title","description"], unique = true)])
 data class Rows(
 
     @PrimaryKey(autoGenerate = true)

@@ -26,7 +26,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     private var mCompositeDisposable: CompositeDisposable? = null
 
 
-    var servicesLiveData: MutableLiveData<NewsRetroResponse>? = null
+    private var servicesLiveData: MutableLiveData<NewsRetroResponse>? = null
 
     init {
         val rowsDao = RowsDatabase.getDatabase(application).rowsDao()
@@ -50,13 +50,13 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
         return servicesLiveData
     }
 
-    fun getServiceApiCall(): MutableLiveData<NewsRetroResponse> {
+   private fun getServiceApiCall(): MutableLiveData<NewsRetroResponse> {
 
         return newsSetterAndGetter
 
     }
 
-    fun getServiceApi(): CompositeDisposable? {
+   private fun getServiceApi(): CompositeDisposable? {
         mCompositeDisposable = CompositeDisposable()
 
         ApiClient.getRetrofitData()?.getData()
@@ -70,12 +70,12 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
         return mCompositeDisposable
     }
 
-    fun handleResponse(androidList: NewsRetroResponse) {
+   private fun handleResponse(androidList: NewsRetroResponse) {
         newsSetterAndGetter.value = androidList
 
     }
 
-    fun handleError(error: Throwable) {
+    private fun handleError(error: Throwable) {
 
         Log.d(ContentValues.TAG, error.localizedMessage)
 

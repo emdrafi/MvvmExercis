@@ -23,9 +23,12 @@ class NewsAdapter(private val mList: List<Rows>, private val context: Context) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val itemsViewModel = mList[position]
         val url: String? = itemsViewModel.imageHref?.replace("http","https")
-       Glide.with(context).load(url).into(holder.imageView)
-        holder.tvTitle.text = itemsViewModel.title
-        holder.tvDescription.text=itemsViewModel.description
+        if(itemsViewModel.title!=null&& itemsViewModel.description!=null){
+            Glide.with(context).load(url).into(holder.imageView)
+            holder.tvTitle.text = itemsViewModel.title
+            holder.tvDescription.text=itemsViewModel.description
+        }
+
 
     }
 
