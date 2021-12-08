@@ -21,57 +21,45 @@ import kotlinx.coroutines.launch
 class MainActivityViewModel(application: Application) : AndroidViewModel(application) {
     val readAllData: LiveData<List<Rows>>
      val repository: MainActivityRepository
-    val newsSetterAndGetter = MutableLiveData<NewsRetroResponse>()
-
+    val newsResponse = MutableLiveData<NewsRetroResponse>()
     private var mCompositeDisposable: CompositeDisposable? = null
-
-
-    private var servicesLiveData: MutableLiveData<NewsRetroResponse>? = null
 
     init {
         val rowsDao = RowsDatabase.getDatabase(application).rowsDao()
         repository = MainActivityRepository(rowsDao)
         readAllData = repository.readAllData
     }
-
     fun addRows(rows: List<Rows>) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.addRows(rows)
         }
     }
 
-
-    fun getUser(): LiveData<NewsRetroResponse>? {
-        mCompositeDisposable = CompositeDisposable()
-        getServiceApi()
-
-
-        servicesLiveData = getServiceApiCall()
-        return servicesLiveData
+    fun getNewsDatas(): LiveData<NewsRetroResponse>? {
+         getServiceApi()
+        return newsResponse
     }
-
-   private fun getServiceApiCall(): MutableLiveData<NewsRetroResponse> {
-
-        return newsSetterAndGetter
-
-    }
-
    private fun getServiceApi(): CompositeDisposable? {
-        mCompositeDisposable = CompositeDisposable()
 
-        ApiClient.getRetrofitData()?.getData()
-            ?.observeOn(AndroidSchedulers.mainThread())
-            ?.subscribeOn(Schedulers.io())?.let {
-                mCompositeDisposable?.add(
-                    it
-                        .subscribe(this::handleResponse, this::handleError)
-                )
-            }
+        mCompositeDisposable = CompositeDisposable()
+           repository.getNewsDatas()
+               ?.observeOn(AndroidSchedulers.mainThread())
+               ?.subscribeOn(Schedulers.io())?.let {
+
+                   mCompositeDisposable?.add(
+                       it
+                           .subscribe(::handleResponse,::handleError)
+                   )
+               }
+
         return mCompositeDisposable
     }
 
-   private fun handleResponse(androidList: NewsRetroResponse) {
-        newsSetterAndGetter.value = androidList
+
+
+
+    private fun handleResponse(androidList: NewsRetroResponse) {
+        newsResponse.value = androidList
 
     }
 

@@ -29,8 +29,6 @@ class ListFragment:Fragment() {
         mainActivityViewModel.readAllData.observe(viewLifecycleOwner, {
 
             val data = it as MutableList<Rows>
-
-
            val adapter = NewsAdapter(data, requireContext())
             val recyclerView = view.findViewById<RecyclerView>(R.id.rv_recycler)
             recyclerView.adapter = adapter
